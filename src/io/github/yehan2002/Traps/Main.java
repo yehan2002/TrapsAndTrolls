@@ -1,51 +1,45 @@
 package io.github.yehan2002.Traps;
 
-import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.RegisteredServiceProvider;
+import io.github.yehan2002.Traps.EventListeners.TrapListener;
+import io.github.yehan2002.Traps.Util.Config;
+import io.github.yehan2002.Traps.Util.Vault;
+import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import java.util.logging.Logger;
 
+public class Main extends JavaPlugin {
+    public Vault vault;
+    private static Main instance;
+    public Config config;
+    private Config trapConfig;
+    public Shop shop;
+    private EventListener listener;
 
-@SuppressWarnings("unused")
-public class Main extends JavaPlugin{
 
     @Override
     public void onEnable() {
+        instance = this;
+        config = new Config("config.yml");
+        trapConfig = new Config("traps.yml");
+        config.saveDefault(false);
+        trapConfig.saveDefault(false);
+        vault = new Vault(this);
+        System.out.println(TrapManager.TNT);
 
-        if (!this.checkVault()){
-            this.getLogger().severe("Disabled due to no Vault dependency found!");
-            this.getServer().getPluginManager().disablePlugin(this);
-            return;
-        }
-
-
-        Command cmd = new Command(this);
-        this.getServer().getPluginManager().registerEvents(cmd.trapShop, this);
-        this.getServer().getPluginManager().registerEvents(new TrapListener(this),  this);
-        this.getServer().getPluginManager().registerEvents(new EventListener(this), this);
-        this.getCommand("trap").setExecutor(cmd);
-
-        System.out.println("Enabled Successfully!!");
-
-    }
-
-    private boolean checkVault(){
-        if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
-            return false;
-        }
-
-        RegisteredServiceProvider<Economy> rsp = this.getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {
-            return false;
-        }
-        return rsp.getProvider() != null;
+        shop = new Shop();
+        listener = new EventListener();
+        this.getServer().getPluginManager().registerEvents(new TrapListener(), this);
+        this.getServer().getPluginManager().registerEvents(listener,this);
+        this.getServer().getPluginCommand("trap").setExecutor(new Command());
     }
 
 
+    public static Main get() {
+        return instance;
+    }
 
     @Override
     public void onDisable() {
-        Logger.getGlobal().info("Disabled Successfully.");
+        listener.save();
+        super.onDisable();
     }
 }

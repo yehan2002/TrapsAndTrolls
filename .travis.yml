@@ -24,4 +24,3 @@ deploy:
   file: $TRAVIS_BUILD_DIR/build/libs/*.jar
   skip_cleanup: true
 
-  # 6bc265973c3d41f4d6c5f359feccf1110b3256f8

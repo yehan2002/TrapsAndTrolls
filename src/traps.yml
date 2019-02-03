@@ -1,0 +1,64 @@
+Fire:
+  price: 1000
+  name: "Fire Trap"
+  description: "Sets the enemy on Fire"
+
+Lightning:
+  price: 7500
+  name: "Lightning Trap"
+  description: "Summons a Lightning bolt"
+
+Glow:
+  price: 1500
+  name: "Glow Trap"
+  description: "Makes the Player Glow like a beacon"
+
+TNT:
+  price: 5000
+  name: "TNT Trap"
+  description: "Summons Primed TNT"
+
+Launch:
+  price: 2500
+  name: "Launch Trap"
+  description: "Sends the player flying!!"
+
+Poison:
+  price: 1500
+  name: "Poison Trap"
+  description: "Poisons the player"
+
+Thief:
+  price: 10000
+  name: "Thief Trap"
+  description: "Steals the item the player is holding"
+
+Cage:
+  price: 25000
+  name: "Cage Trap"
+  description: "Traps the player in a cage"
+
+Lava:
+  price: 20000
+  name: "Lava Trap"
+  description: "Slowly sends the player into lava."
+
+Diamond:
+  price: 1000
+  name: "Fake Diamond Troll"
+  description: "Spawns a diamond that can't be picked up."
+
+Herobrine:
+  price: 2000
+  name: "Herobrine Troll"
+  description: "A Herobrine Jump-scare."
+
+Creative:
+  price: 2000
+  name: "Creative Mode Troll"
+  description: "Fake Creative mode."
+
+Op:
+  price: 200
+  name: "Fake Op Troll"
+  description: "Fake Op"

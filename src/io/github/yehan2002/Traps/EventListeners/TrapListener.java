@@ -1,5 +1,7 @@
-package io.github.yehan2002.Traps;
+package io.github.yehan2002.Traps.EventListeners;
 
+import io.github.yehan2002.Traps.Main;
+import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -9,7 +11,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,11 +20,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TrapListener implements Listener {
-    private JavaPlugin plugin;
-
-    TrapListener(JavaPlugin p) {
-        plugin = p;
-    }
 
     @SuppressWarnings("unused")
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
@@ -52,7 +48,7 @@ public class TrapListener implements Listener {
                    public void run(){
                        e.getPlayer().teleport(e.getPlayer().getLocation().add(0, 10, 0));
                    }
-               }.runTaskLater(plugin, 5);
+               }.runTaskLater(Main.get(), 5);
 
             }
             e.setCancelled(true);
@@ -88,6 +84,7 @@ public class TrapListener implements Listener {
     }
 
     private void HerobrineTroll(TrapTriggeredEvent e){
+        if (e.getTrap() != TrapManager.Herobrine) return;
         Location l = e.getPlayer().getLocation();
         e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERDRAGON_AMBIENT, 1, 5);
 
@@ -129,16 +126,17 @@ public class TrapListener implements Listener {
         c.setMaxFuseTicks(40);
         c.setVelocity(e.getPlayer().getVelocity());
 
+        e.setCancelled(true);
     }
 
-    @SuppressWarnings( "deprecation" )
     private void ThiefTrap(TrapTriggeredEvent e) {
+        if (e.getTrap() != TrapManager.Thief) return;
         Player p = e.getPlayer();
         ItemStack handItem;
         try {
             handItem = p.getInventory().getItemInMainHand();
         } catch (NoSuchMethodError methodError) {
-            handItem = p.getInventory().getItemInHand();
+            handItem = p.getInventory().getItemInMainHand();
         }
         if (handItem.getType() == Material.AIR | handItem.getType() == Material.WRITTEN_BOOK) {
             return;
@@ -162,11 +160,15 @@ public class TrapListener implements Listener {
         try {
             p.getInventory().setItemInMainHand(writtenBook);
         }catch (NoSuchMethodError methodError){
-            p.getInventory().setItemInHand(writtenBook);
+            p.getInventory().setItemInMainHand(writtenBook);
         }
+
+        e.setCancelled(true);
     }
 
     private void LavaTrap(TrapTriggeredEvent e) {
+        if (e.getTrap() != TrapManager.Lava) return;
+
         Player p = e.getPlayer();
         Location l = p.getLocation();
         Location lava;
@@ -193,28 +195,25 @@ public class TrapListener implements Listener {
                 }
             }
         };
-        BukkitTask noDeathRunner = Bukkit.getServer().getScheduler().runTaskTimer(plugin, noDeath, 200, 20);
+        BukkitTask noDeathRunner = Bukkit.getServer().getScheduler().runTaskTimer(Main.get(), noDeath, 200, 20);
 
-        Runnable reset = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (l.getChunk().isLoaded()) {
-                    for (Location loc : resetList.keySet()) {
-                        loc.getBlock().setType(resetList.get(loc));
 
-                    }
-                    noDeathRunner.cancel();
+        Bukkit.getServer().getScheduler().runTaskLater(Main.get(), () -> {
+            if (l.getChunk().isLoaded()) {
+                for (Location loc : resetList.keySet()) {
+                    loc.getBlock().setType(resetList.get(loc));
+
                 }
+                noDeathRunner.cancel();
             }
-        };
+        }, 1200);
 
-
-        Bukkit.getServer().getScheduler().runTaskLater(plugin, reset, 1200);
-
-
+        e.setCancelled(true);
     }
 
+    @EventHandler
     private void CageTrap(TrapTriggeredEvent e) {
+        if (e.getTrap() != TrapManager.Cage) return;
         Player p = e.getPlayer();
         Location l = p.getLocation();
         HashMap<Location, Material> resetList = new HashMap<>();
@@ -268,21 +267,21 @@ public class TrapListener implements Listener {
         l.getBlock().setType(Material.IRON_FENCE);
         l.setY(l.getY() - 2);
 
-        Runnable reset = new BukkitRunnable() {
-            @Override
-            public void run() {
-                if (l.getChunk().isLoaded()) {
-                    for (Location loc : resetList.keySet()) {
-                        loc.getBlock().setType(resetList.get(loc));
-                    }
+        Bukkit.getServer().getScheduler().runTaskLater(Main.get(), () -> {
+            if (l.getChunk().isLoaded()) {
+                for (Location loc : resetList.keySet()) {
+                    loc.getBlock().setType(resetList.get(loc));
                 }
             }
-        };
-        Bukkit.getServer().getScheduler().runTaskLater(plugin, reset, 600);
+        }, 60);
+
+
+        e.setCancelled(true);
 
     }
 
     private void DiamondTroll(TrapTriggeredEvent e) {
+        if (e.getTrap() != TrapManager.Diamond) return;
         ArrayList<Item> drops = new ArrayList<>();
         for (int i = 0; i < 256; i++) {
             Item Drop = e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation().add(0, 1, 0), new ItemStack(Material.DIAMOND));
@@ -303,28 +302,34 @@ public class TrapListener implements Listener {
                     Drop.remove();
                 }
             }
-        }.runTaskLater(plugin, 500);
+        }.runTaskLater(Main.get(), 500);
         e.setCancelled(true);
     }
 
     private void CreativeTroll(TrapTriggeredEvent e){
+        if (e.getTrap() != TrapManager.Creative) return;
         e.getPlayer().sendMessage(ChatColor.GOLD + "Set game mode " + ChatColor.RED + "creative" + ChatColor.GOLD + " for " + ChatColor.DARK_RED + e.getPlayer().getDisplayName());
         new BukkitRunnable(){
             @Override
             public void run() {
                 e.getPlayer().sendMessage("You have been Trolled :)");
             }
-        }.runTaskLater(plugin, 200);
+        }.runTaskLater(Main.get(), 200);
+
+        e.setCancelled(true);
     }
 
     private void OpTroll(TrapTriggeredEvent e){
+        if (e.getTrap() != TrapManager.Op) return;
         e.getPlayer().sendMessage(ChatColor.GRAY + "[Server: Opped " + e.getPlayer().getDisplayName() + "]");
         new BukkitRunnable(){
             @Override
             public void run() {
                 e.getPlayer().sendMessage("You have been Trolled :)");
             }
-        }.runTaskLater(plugin, 200);
+        }.runTaskLater(Main.get(), 200);
+
+        e.setCancelled(true);
     }
 
 }

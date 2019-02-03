@@ -1,12 +1,16 @@
 name: Trap
 main: io.github.yehan2002.Traps.Main
-version: @VERSION@
+version: 1.2
 commands:
   trap:
     description: Traps and Trolls Main Command
     usage: /trap help
 
-permissions:
-  trapAandTrolls.exempt:
-    description: Players with this permision do not trigger any traps.
-    default: false
+#permissions:
+#  trapAndTrolls.exempt:
+#    description: Players with this permision do not trigger any traps.
+#    default: false
+
+#  trapsAndTrolls.show:
+#    description: Allows players to user /trap show
+#    default: false

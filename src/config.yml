@@ -1,0 +1,20 @@
+# traps which sould be enabled
+traps:
+  Fire: true
+  Lightning: true
+  Glow: true
+  TNT: true
+  Launch: true
+  Poison: true
+  Thief: true
+  Cage: true
+  Lava: true
+  Diamond: true
+  Herobrine: true
+  Creative: true
+  Op: true
+
+
+messages:
+  notEnoughMoney: "&4You do not have enough money to buy this item"
+  buySuccess: "&2You have successfully bought item."

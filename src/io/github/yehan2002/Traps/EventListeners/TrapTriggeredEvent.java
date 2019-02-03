@@ -1,10 +1,13 @@
-package io.github.yehan2002.Traps;
+package io.github.yehan2002.Traps.EventListeners;
 
+import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Cancellable;
 
+
+@SuppressWarnings("unused")
 public final class TrapTriggeredEvent extends Event implements Cancellable {
     private static final HandlerList handlers = new HandlerList();
     private TrapManager Trap;

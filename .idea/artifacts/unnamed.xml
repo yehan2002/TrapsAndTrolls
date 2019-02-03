@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="unnamed">
-    <output-path>$USER_HOME$/Files/server2/plugins</output-path>
-    <root id="archive" name="Trap.jar">
-      <element id="module-output" name="Trap" />
-    </root>
-  </artifact>
-</component>
