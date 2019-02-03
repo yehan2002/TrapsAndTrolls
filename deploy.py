@@ -2,10 +2,10 @@
 import sys
 import os
 
-if len(sys.argv) == 0:
+if len(sys.argv) == 1:
     quit("Usage: %s [Version]" % os.path.dirname(__file__))
 
-v = sys.argv[0]
+v = sys.argv[1]
 
 os.chdir(os.path.dirname(__file__))
 
