@@ -5,6 +5,9 @@ jdk:
 
 script:
 - "./gradlew build"
+- "echo $TRAVIS_BUILD_DIR"
+- "cd $TRAVIS_BUILD_DIR/builds"
+- "ls"
 
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -17,6 +20,7 @@ cache:
   
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: hAUg+iCgAwqSdOf/NXaoAJpvj8s+ytZxRGFC0UICA6pTrxHjL+jAi9y9kRZI/P/jyycaNbZNaIIF5RmFwGFRbBbJvPZLCWa9AgvyXBbLmmlQdRe3BVRV4ziQ/zHWsePwdd9pRwpXTwTNi5ywIEPUKPSWMZ7FteQifs8FnzsiFTopr0SQCN/vL80MD6SRbM05E4TzJmt5dUNPRMby/LS+ikFYZj/sbOncg+8HOBu9hrVfOTVgqPHO+6hHUMeehAfQjFuUgLnhBeNje48erC9xS9IGKGrNpEtGxfHEn0TzLhtClK5KHWib+Ekn19+Aue5mhC+Rb6en6AnMdQDyc04/j+VuuNLFtWLwX+GsuJPPiCDduayGjTOO4JkNsNArOHKiFAVO61VPzi6zLaId5v9alwLGYz0/mk0KKAEdK/tHUVYD4CLQzKNlgJVYQuh4WME+2dG2GoVPQjXUwK9GoQNRtBU4cieyaN2OHoS3bFxrB7smem0tnuRI1TUTawjP2xz3n2dnn/pUanO9kPjSv3OR0UYHP27Y6UvEj9B/wY/RPEVhdMAZCbScasEOzO6rdHl/3Ydsky/vFriHTKc0X5elw0cNMhy7tNERwQQyinWbQfJm4Dhj8h0XdcbbWpYeEv2hmdZuseeS/Bw+nO8dMorRsRJffoc+ZcPCEJY3QJ/8gNk=
   file: $TRAVIS_BUILD_DIR/builds/*.jar
