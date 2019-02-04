@@ -5,7 +5,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 
 group = 'io.github.yehan2002.Traps'
-version = "1.4"
+version = "1.4"  //$VERSION$
 archivesBaseName = 'Traps'
 
 sourceCompatibility = '1.8'
