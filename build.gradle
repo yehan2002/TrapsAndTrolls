@@ -1,1 +1,96 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+group = 'io.github.yehan2002.Traps'
+version = "1.4"
+archivesBaseName = 'Traps'
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+def bukkitVersion = '1.12.2-R0.1-SNAPSHOT'
+
+def getCheckedOutGitCommitHash() {
+    def gitFolder = "$projectDir/.git/"
+    def takeFromHash = 12
+
+    def head = new File(gitFolder + "HEAD").text.split(":") // .git/HEAD
+    def isCommit = head.length == 1
+
+    if(isCommit) return head[0].trim().take(takeFromHash)
+
+    def refHead = new File(gitFolder + head[1].trim())
+    refHead.text.trim().take takeFromHash
+}
+
+repositories {
+    jcenter()
+
+    maven {
+        url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+    }
+
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
+
+    maven {
+        url 'http://nexus.hc.to/content/repositories/pub_releases'
+    }
+}
+
+dependencies {
+    compile (group: 'org.spigotmc', name: 'spigot-api', version: bukkitVersion)
+    compile (group: 'net.milkbowl.vault', name: 'VaultAPI', version: "1.7")
+}
+
+version = version + "-SNAPSHOT-" + getCheckedOutGitCommitHash()
+
+compileJava.options.encoding = 'UTF-8'
+
+task fatJar(type: Jar) {
+
+    baseName = project.name
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+        }
+    }
+}
+
+
+jar {
+    manifest {
+        attributes('Implementation-Title': project.name,
+                'Implementation-Version': project.version)
+    }
+    from('src/') {
+        include 'plugin.yml'
+        filter(ReplaceTokens, tokens: [VERSION : project.version])
+    }
+    doLast {
+        def dir = new File("builds")
+
+        if( !dir.exists() ) {
+            dir.mkdirs()
+        }
+        
+        copy {
+            from 'build/libs/*'
+            into "builds"
+        }
+    }
+
+}
+
+
+
 
