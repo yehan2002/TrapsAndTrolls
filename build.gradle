@@ -84,7 +84,7 @@ jar {
         }
         
         copy {
-            from 'build/libs/*'
+            from 'build/libs'
             into "builds"
         }
     }

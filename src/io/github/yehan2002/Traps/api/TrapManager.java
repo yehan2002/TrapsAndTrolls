@@ -4,7 +4,6 @@ import de.tr7zw.itemnbtapi.NBTItem;
 import io.github.yehan2002.Traps.Main;
 import io.github.yehan2002.Traps.Shop;
 import io.github.yehan2002.Traps.Util.Config;
-import io.netty.channel.Channel;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
