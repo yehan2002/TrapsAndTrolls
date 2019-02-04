@@ -22,5 +22,5 @@ deploy:
   file: $TRAVIS_BUILD_DIR/builds/*.jar
   file_glob: true
   on:
-    repo: yehan2002/TrapsAndTrolls
+    tag: true
 
