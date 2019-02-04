@@ -1,26 +1,21 @@
 language: java
 install: true
-
 jdk:
-  - oraclejdk8
-
+- oraclejdk8
 script:
-  - ./gradlew build
-
+- "./gradlew build"
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
-
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
   directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
-
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
 deploy:
   provider: releases
   api_key:
-    secure: "w2sIJcq+ixjOsjXuUVMb3gWZ6VaVhmd4hOqbc4ldvQ7MK0nwcW0NAKYXuSSu/KSLixfrwwVKdYp5fnCHwI8NeKS6CdwMCzO0EldpTmev55cffgddQ8cXUndj5Z63/Pt9hNB8HTcFyFZvV+asVnzkF5qxjl8okY0b/pj3PLSDthbO0gBlQLdSKpmMMhTGZy6sXufhSr0EzujzXzVG5USasX6YY+BCdc8z3ZQSTTMX8x0oACWWW8RY1WzG7laVYQsj3vPKBsMkwi0UgiRs3lIjqGPopd+NAuugLGkzhEf/aehIQHKB33riZ0NqQ5MC+vlrDYTcvosgwEqP2Ofsulh9TmZD8wwm/NMlA4L9MbfhYrMgFDrd/eOp+BtxV9GsHAwEb3i54YWrAXkY22nLp1zxTjaGIaFlFC+FeWx5kjiAdoLUGA7RRorlJKAvOarNheXdn+8O1i3tUFUG+sCIQ7xnJzCpPRxR0E5AEFStzJeGpP6m6GbJvTvjGaBYfpfmqXCSCbtDuU+Q0JejE05zQ5f5t0OZK4UrKV3v2kmvf492OGz8FTjT038p2ldzgTli6CDI3zqIAhEQp8Gwxamq9gvWsv5Uqdu5eMmTA6pKyRDPeI6yACm6Ww4tCh5ELE6s+iBckdVOnO/0eWUK/xLSUJBJmMXNEgLLhjNunv+cFDY0mQE="
-  file_glob: true
-  file: $TRAVIS_BUILD_DIR/build/libs/*.jar
-  skip_cleanup: true
-
+    secure: hAUg+iCgAwqSdOf/NXaoAJpvj8s+ytZxRGFC0UICA6pTrxHjL+jAi9y9kRZI/P/jyycaNbZNaIIF5RmFwGFRbBbJvPZLCWa9AgvyXBbLmmlQdRe3BVRV4ziQ/zHWsePwdd9pRwpXTwTNi5ywIEPUKPSWMZ7FteQifs8FnzsiFTopr0SQCN/vL80MD6SRbM05E4TzJmt5dUNPRMby/LS+ikFYZj/sbOncg+8HOBu9hrVfOTVgqPHO+6hHUMeehAfQjFuUgLnhBeNje48erC9xS9IGKGrNpEtGxfHEn0TzLhtClK5KHWib+Ekn19+Aue5mhC+Rb6en6AnMdQDyc04/j+VuuNLFtWLwX+GsuJPPiCDduayGjTOO4JkNsNArOHKiFAVO61VPzi6zLaId5v9alwLGYz0/mk0KKAEdK/tHUVYD4CLQzKNlgJVYQuh4WME+2dG2GoVPQjXUwK9GoQNRtBU4cieyaN2OHoS3bFxrB7smem0tnuRI1TUTawjP2xz3n2dnn/pUanO9kPjSv3OR0UYHP27Y6UvEj9B/wY/RPEVhdMAZCbScasEOzO6rdHl/3Ydsky/vFriHTKc0X5elw0cNMhy7tNERwQQyinWbQfJm4Dhj8h0XdcbbWpYeEv2hmdZuseeS/Bw+nO8dMorRsRJffoc+ZcPCEJY3QJ/8gNk=
+  file: "$TRAVIS_BUILD_DIR/build/libs/*.jar"
+  on:
+    repo: yehan2002/TrapsAndTrolls
+    tag: true
