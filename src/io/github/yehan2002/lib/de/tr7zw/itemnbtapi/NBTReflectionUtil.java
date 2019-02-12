@@ -1,4 +1,4 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,8 +10,8 @@ import java.util.Stack;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Entity;
 
-import de.tr7zw.itemnbtapi.utils.GsonWrapper;
-import de.tr7zw.itemnbtapi.utils.MinecraftVersion;
+import io.github.yehan2002.lib.de.tr7zw.itemnbtapi.utils.GsonWrapper;
+import io.github.yehan2002.lib.de.tr7zw.itemnbtapi.utils.MinecraftVersion;
 
 /*
 The MIT License (MIT)

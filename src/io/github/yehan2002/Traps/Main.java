@@ -7,10 +7,9 @@ import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
-    public Vault vault;
+    Vault vault;
     private static Main instance;
     public Config config;
-    private Config trapConfig;
     public Shop shop;
     private EventListener listener;
 
@@ -19,9 +18,11 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
         config = new Config("config.yml");
-        trapConfig = new Config("traps.yml");
         config.saveDefault(false);
+
+        Config trapConfig = new Config("traps.yml");
         trapConfig.saveDefault(false);
+
         vault = new Vault(this);
         System.out.println(TrapManager.TNT);
 

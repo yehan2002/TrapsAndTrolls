@@ -1,6 +1,9 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
-import org.bukkit.block.BlockState;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /*
 The MIT License (MIT)
@@ -27,21 +30,42 @@ SOFTWARE.
 
 */
 
-public class NBTTileEntity extends NBTCompound {
+public class NBTFile extends NBTCompound {
 
-    private final BlockState tile;
+    private final File file;
+    private Object nbt;
 
-    public NBTTileEntity(BlockState tile) {
+    public NBTFile(File file) throws IOException {
         super(null, null);
-        this.tile = tile;
+        this.file = file;
+        if (file.exists()) {
+            FileInputStream inputsteam = new FileInputStream(file);
+            nbt = NBTReflectionUtil.readNBTFile(inputsteam);
+        } else {
+            nbt = ObjectCreator.NMS_NBTTAGCOMPOUND.getInstance();
+            save();
+        }
+    }
+
+    public void save() throws IOException {
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        FileOutputStream outStream = new FileOutputStream(file);
+        NBTReflectionUtil.saveNBTFile(nbt, outStream);
+    }
+
+    public File getFile() {
+        return file;
     }
 
     protected Object getCompound() {
-        return NBTReflectionUtil.getTileEntityNBTTagCompound(tile);
+        return nbt;
     }
 
     protected void setCompound(Object compound) {
-        NBTReflectionUtil.setTileEntityNBTTagCompound(tile, compound);
+        nbt = compound;
     }
 
 }

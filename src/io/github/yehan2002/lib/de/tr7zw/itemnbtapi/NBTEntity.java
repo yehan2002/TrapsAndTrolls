@@ -1,9 +1,6 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import org.bukkit.entity.Entity;
 
 /*
 The MIT License (MIT)
@@ -30,42 +27,21 @@ SOFTWARE.
 
 */
 
-public class NBTFile extends NBTCompound {
+public class NBTEntity extends NBTCompound {
 
-    private final File file;
-    private Object nbt;
+    private final Entity ent;
 
-    public NBTFile(File file) throws IOException {
+    public NBTEntity(Entity entity) {
         super(null, null);
-        this.file = file;
-        if (file.exists()) {
-            FileInputStream inputsteam = new FileInputStream(file);
-            nbt = NBTReflectionUtil.readNBTFile(inputsteam);
-        } else {
-            nbt = ObjectCreator.NMS_NBTTAGCOMPOUND.getInstance();
-            save();
-        }
-    }
-
-    public void save() throws IOException {
-        if (!file.exists()) {
-            file.getParentFile().mkdirs();
-            file.createNewFile();
-        }
-        FileOutputStream outStream = new FileOutputStream(file);
-        NBTReflectionUtil.saveNBTFile(nbt, outStream);
-    }
-
-    public File getFile() {
-        return file;
+        ent = entity;
     }
 
     protected Object getCompound() {
-        return nbt;
+        return NBTReflectionUtil.getEntityNBTTagCompound(NBTReflectionUtil.getNMSEntity(ent));
     }
 
     protected void setCompound(Object compound) {
-        nbt = compound;
+        NBTReflectionUtil.setEntityNBTTag(compound, NBTReflectionUtil.getNMSEntity(ent));
     }
 
 }

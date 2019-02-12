@@ -1,6 +1,6 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
-import org.bukkit.entity.Entity;
+import org.bukkit.block.BlockState;
 
 /*
 The MIT License (MIT)
@@ -27,21 +27,21 @@ SOFTWARE.
 
 */
 
-public class NBTEntity extends NBTCompound {
+public class NBTTileEntity extends NBTCompound {
 
-    private final Entity ent;
+    private final BlockState tile;
 
-    public NBTEntity(Entity entity) {
+    public NBTTileEntity(BlockState tile) {
         super(null, null);
-        ent = entity;
+        this.tile = tile;
     }
 
     protected Object getCompound() {
-        return NBTReflectionUtil.getEntityNBTTagCompound(NBTReflectionUtil.getNMSEntity(ent));
+        return NBTReflectionUtil.getTileEntityNBTTagCompound(tile);
     }
 
     protected void setCompound(Object compound) {
-        NBTReflectionUtil.setEntityNBTTag(compound, NBTReflectionUtil.getNMSEntity(ent));
+        NBTReflectionUtil.setTileEntityNBTTagCompound(tile, compound);
     }
 
 }

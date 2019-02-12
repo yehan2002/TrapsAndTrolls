@@ -22,7 +22,7 @@ def addVersion(path, key, data):
     with open(path, "wb") as f:
         f.writelines(filedata)
 
-addVersion('buid.gradle', "//$VERSION$", 'version = "%s" //$VERSION$\n')
+addVersion('build.gradle', "//$VERSION$", 'version = "%s" //$VERSION$\n')
 addVersion('src/plugin.yml', "#$version$", 'version: %s #$version$\n')
 
 quit()

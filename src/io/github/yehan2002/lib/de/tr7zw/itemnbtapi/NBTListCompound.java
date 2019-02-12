@@ -1,4 +1,4 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package de.tr7zw.itemnbtapi;
+package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
 
 import org.bukkit.inventory.ItemStack;
 
-import de.tr7zw.itemnbtapi.utils.MinecraftVersion;
+import io.github.yehan2002.lib.de.tr7zw.itemnbtapi.utils.MinecraftVersion;
 
 /*
 The MIT License (MIT)

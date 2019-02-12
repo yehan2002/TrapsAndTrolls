@@ -1,12 +1,11 @@
 package io.github.yehan2002.Traps.api;
 
-import de.tr7zw.itemnbtapi.NBTItem;
+import io.github.yehan2002.lib.de.tr7zw.itemnbtapi.NBTItem;
 import io.github.yehan2002.Traps.Main;
 import io.github.yehan2002.Traps.Shop;
 import io.github.yehan2002.Traps.Util.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
