@@ -1,6 +1,5 @@
-package io.github.yehan2002.Traps.EventListeners;
+package io.github.yehan2002.Traps.api;
 
-import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

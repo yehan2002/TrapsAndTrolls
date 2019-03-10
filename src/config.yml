@@ -1,4 +1,4 @@
-# traps which sould be enabled
+# traps which should be enabled
 traps:
   Fire: true
   Lightning: true
@@ -18,3 +18,4 @@ traps:
 messages:
   notEnoughMoney: "&4You do not have enough money to buy this item"
   buySuccess: "&2You have successfully bought item."
+  noPerms: "&4You do not have permission to buy this item"

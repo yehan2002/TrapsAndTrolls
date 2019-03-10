@@ -2,63 +2,76 @@ Fire:
   price: 1000
   name: "Fire Trap"
   description: "Sets the enemy on Fire"
+  permission: "trapAndTrolls.trap.Fire"
 
 Lightning:
   price: 7500
   name: "Lightning Trap"
   description: "Summons a Lightning bolt"
+  permission: "trapAndTrolls.trap.Lightning"
 
 Glow:
   price: 1500
   name: "Glow Trap"
   description: "Makes the Player Glow like a beacon"
+  permission: "trapAndTrolls.trap.Glow"
 
 TNT:
   price: 5000
   name: "TNT Trap"
   description: "Summons Primed TNT"
+  permission: "trapAndTrolls.trap.TNT"
 
 Launch:
   price: 2500
   name: "Launch Trap"
   description: "Sends the player flying!!"
+  permission: "trapAndTrolls.trap.Launch"
 
 Poison:
   price: 1500
   name: "Poison Trap"
   description: "Poisons the player"
+  permission: "trapAndTrolls.trap.Poison"
 
 Thief:
   price: 10000
   name: "Thief Trap"
   description: "Steals the item the player is holding"
+  permission: "trapAndTrolls.trap.Thief"
 
 Cage:
   price: 25000
   name: "Cage Trap"
   description: "Traps the player in a cage"
+  permission: "trapAndTrolls.trap.Cage"
 
 Lava:
   price: 20000
   name: "Lava Trap"
   description: "Slowly sends the player into lava."
+  permission: "trapAndTrolls.trap.Lava"
 
 Diamond:
   price: 1000
   name: "Fake Diamond Troll"
   description: "Spawns a diamond that can't be picked up."
+  permission: "trapAndTrolls.trap.Diamond"
 
 Herobrine:
   price: 2000
   name: "Herobrine Troll"
   description: "A Herobrine Jump-scare."
+  permission: "trapAndTrolls.trap.Herobrine"
 
 Creative:
   price: 2000
   name: "Creative Mode Troll"
   description: "Fake Creative mode."
+  permission: "trapAndTrolls.trap.Creative"
 
 Op:
   price: 200
   name: "Fake Op Troll"
   description: "Fake Op"
+  permission: "trapAndTrolls.trap.Op"

@@ -1,6 +1,6 @@
 package io.github.yehan2002.Traps.api;
 
-import io.github.yehan2002.lib.de.tr7zw.itemnbtapi.NBTItem;
+import de.tr7zw.itemnbtapi.NBTItem;
 import io.github.yehan2002.Traps.Main;
 import io.github.yehan2002.Traps.Shop;
 import io.github.yehan2002.Traps.Util.Config;
@@ -33,7 +33,7 @@ public enum  TrapManager {
 
     {
         trapConfig = new Config("traps.yml");
-        trapConfig.saveDefault(true);
+        trapConfig.saveDefault();
     }
 
     public final int type;
@@ -41,6 +41,7 @@ public enum  TrapManager {
     public final String description;
     public final String name;
     public final boolean enabled;
+    public final String perm;
 
     TrapManager(int i) {
         type = i;
@@ -49,6 +50,7 @@ public enum  TrapManager {
             price = 0;
             description = "";
             name = "";
+            perm = "";
             enabled = false;
             return;
         }
@@ -56,6 +58,8 @@ public enum  TrapManager {
         price = trapConfig.getInt(this + ".price");
         description = trapConfig.getString(this + ".description");
         name = trapConfig.getString(this + ".name");
+        perm = trapConfig.getString(this + ".permission");
+        System.out.println(perm);
         enabled = Main.get().config.getBoolean( "traps."+ this );
 
         if (Main.get().shop != null) Main.get().shop = new Shop();
@@ -82,5 +86,9 @@ public enum  TrapManager {
             return TrapManager.valueOf(nbtItem.getString("trapName"));
         }
         return null;
+    }
+
+    public static void addCustom(String name, boolean addToShop, int price) throws Exception {
+        throw new Exception("Not Implemented Yet...");
     }
 }

@@ -6,10 +6,65 @@ commands:
     description: Traps and Trolls Main Command
     usage: /trap help
 
-#permissions:
-#  trapAndTrolls.exempt:
-#    description: Players with this permision do not trigger any traps.
-#    default: false
+
+permissions:
+  trapAndTrolls.exempt:
+    description: Players with this permision can do /trap exempt to not trigger any traps.
+    default: op
+
+  trapsAndTrolls.trap.Fire:
+    description: Allow player to buy and place the fire trap
+    default: true
+
+  trapsAndTrolls.trap.Lightning:
+    description: Allow player to buy and place the lightning trap
+    default: true
+
+  trapsAndTrolls.trap.Glow:
+    description: Allow player to buy and place the glow trap
+    default: true
+
+  trapsAndTrolls.trap.TNT:
+    description: Allow player to buy and place the tnt trap
+    default: true
+
+  trapsAndTrolls.trap.Launch:
+    description: Allow player to buy and place the launch trap
+    default: true
+
+  trapsAndTrolls.trap.Poison:
+    description: Allow player to buy and place the poison trap
+    default: true
+
+  trapsAndTrolls.trap.Thief:
+    description: Allow player to buy and place the thief trap
+    default: true
+
+  trapsAndTrolls.trap.Cage:
+    description: Allow player to buy and place the cage trap
+    default: true
+
+  trapsAndTrolls.trap.Lava:
+    description: Allow player to buy and place the lava trap
+    default: true
+
+  trapsAndTrolls.trap.Diamond:
+    description: Allow player to buy and place the diamond trap
+    default: true
+
+  trapsAndTrolls.trap.Herobrine:
+    description: Allow player to buy and place the herobrine trap
+    default: true
+
+  trapsAndTrolls.trap.Creative:
+    description: Allow player to buy and place the creative trap
+    default: true
+
+  trapsAndTrolls.trap.Op:
+    description: Allow player to buy and place the op trap
+    default: true
+
+
 
 #  trapsAndTrolls.show:
 #    description: Allows players to user /trap show

@@ -22,13 +22,29 @@ public class Command implements CommandExecutor {
                 p.sendMessage("");
                 p.sendMessage(ChatColor.GREEN + "Commands:");
                 p.sendMessage(ChatColor.GOLD + "/trap shop -" + ChatColor.GREEN + " Open player shop.");
+                p.sendMessage(ChatColor.GOLD + "/trap exempt -" + ChatColor.GREEN + " Become exempt from triggering traps.");
                 p.sendMessage(ChatColor.GOLD + "/trap help -" + ChatColor.GREEN + " Display this message.");
             }
-            if (args.length == 1 && args[0].equalsIgnoreCase("shop")) {
-                Main.get().shop.openShop(p);
+            if (args.length == 1) {
+                if (args[0].equalsIgnoreCase("shop")) {
+                    Main.get().shop.openShop(p);
 
-                return true;
+                    return true;
+                } else if (args[0].equalsIgnoreCase("exempt")){
+                    if (!p.hasPermission("trapAndTrolls.exempt")){
+                        p.sendMessage(ChatColor.RED + "You do not have permission to run this command.");
+
+                    } else if (Main.exemptedPlayers.contains(p.getUniqueId())){
+                        Main.exemptedPlayers.remove(p.getUniqueId());
+                        p.sendMessage(ChatColor.GREEN + "You are no longer exempt from triggering traps");
+                    } else {
+                        Main.exemptedPlayers.add(p.getUniqueId());
+                        p.sendMessage(ChatColor.GREEN + "You are now exempt from triggering traps.");
+                    }
+                    return true;
+                }
             }
+
         }
             return true;
     }

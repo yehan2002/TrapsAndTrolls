@@ -2,9 +2,16 @@ package io.github.yehan2002.Traps;
 
 import io.github.yehan2002.Traps.EventListeners.TrapListener;
 import io.github.yehan2002.Traps.Util.Config;
+import io.github.yehan2002.Traps.Util.Recipe;
 import io.github.yehan2002.Traps.Util.Vault;
 import io.github.yehan2002.Traps.api.TrapManager;
+import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 public class Main extends JavaPlugin {
     Vault vault;
@@ -12,6 +19,8 @@ public class Main extends JavaPlugin {
     public Config config;
     public Shop shop;
     private EventListener listener;
+    static ArrayList<UUID> exemptedPlayers = new ArrayList<>();
+
 
 
     @Override
@@ -28,6 +37,8 @@ public class Main extends JavaPlugin {
 
         shop = new Shop();
         listener = new EventListener();
+
+        new Recipe(new ItemStack(Material.DEAD_BUSH), "spring_stick").addRecipe(" I ", " S ", " S ").setIngredient('I', Material.IRON_INGOT,1 ).setIngredient('S', Material.STICK, 1);
         this.getServer().getPluginManager().registerEvents(new TrapListener(), this);
         this.getServer().getPluginManager().registerEvents(listener,this);
         this.getServer().getPluginCommand("trap").setExecutor(new Command());
@@ -43,4 +54,6 @@ public class Main extends JavaPlugin {
         listener.save();
         super.onDisable();
     }
+
+
 }

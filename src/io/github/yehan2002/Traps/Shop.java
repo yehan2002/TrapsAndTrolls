@@ -17,6 +17,7 @@ import java.util.List;
 public class Shop implements Listener {
     private ItemStack[] optionIcons;
     private int[] prices;
+    private String[] perms;
     private Inventory inventory;
     private int size;
     private String name = ChatColor.GREEN + "Trap Shop";
@@ -29,6 +30,7 @@ public class Shop implements Listener {
         this.inventory = Bukkit.createInventory(null, size, name);
         this.optionIcons = new ItemStack[size];
         this.prices = new int[size];
+        this.perms = new String[size];
         this.addItems();
         Main.get().getServer().getPluginManager().registerEvents(this, Main.get());
     }
@@ -39,6 +41,7 @@ public class Shop implements Listener {
             if (traps[i] == TrapManager.Custom || !traps[i].enabled) continue;
             optionIcons[i] = traps[i].get(true);
             prices[i] = traps[i].price;
+            perms[i] = traps[i].perm;
             inventory.setItem(i, this.addPrice(traps[i].get(false), traps[i].price));
         }
     }
@@ -59,6 +62,10 @@ public class Shop implements Listener {
             int slot = event.getRawSlot();
             if (this.isValid(slot,event.getClickedInventory().getItem(slot))){
                 Player p = (Player) event.getWhoClicked();
+                if (!p.hasPermission(perms[slot])){
+                    p.sendMessage(ChatColor.translateAlternateColorCodes('&', Main.get().config.getString("messages.noPerms")));
+                    return;
+                }
                 if (Main.get().vault.buyItem(p, prices[slot])) p.getInventory().addItem(optionIcons[slot]);
             }
         }

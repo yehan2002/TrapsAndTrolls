@@ -1,6 +1,6 @@
 package io.github.yehan2002.Traps;
 
-import io.github.yehan2002.Traps.EventListeners.TrapTriggeredEvent;
+import io.github.yehan2002.Traps.api.TrapTriggeredEvent;
 import io.github.yehan2002.Traps.Util.Serialization.serialization;
 import io.github.yehan2002.Traps.api.Trap;
 import io.github.yehan2002.Traps.api.TrapManager;
@@ -37,11 +37,12 @@ public class EventListener implements Listener{
         if(!p.getLocation().getBlock().isEmpty() && p.getLocation().getBlock().getType() == Material.TRIPWIRE){
             if (traps.containsKey(l)){
                 TrapManager trap = traps.get(l).trap;
+                System.out.println(e);
 
 
-                //if (p.hasPermission("trapsAndTrolls.exempt")){
-                  //  return;
-                //}
+                if (Main.exemptedPlayers.contains(p.getUniqueId())){
+                   return;
+                }
 
                 TrapTriggeredEvent event = new TrapTriggeredEvent(p, trap, null);
 
@@ -104,13 +105,13 @@ public class EventListener implements Listener{
 
 
                 } else {
-                    e.setExpToDrop(50);
+                    e.setExpToDrop(10);
                 }
             }
         }
     }
 
-    public void save(){
+    void save(){
         serialization.Serialize(traps);
     }
 }

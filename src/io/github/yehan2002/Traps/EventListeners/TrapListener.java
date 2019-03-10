@@ -2,6 +2,7 @@ package io.github.yehan2002.Traps.EventListeners;
 
 import io.github.yehan2002.Traps.Main;
 import io.github.yehan2002.Traps.api.TrapManager;
+import io.github.yehan2002.Traps.api.TrapTriggeredEvent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;

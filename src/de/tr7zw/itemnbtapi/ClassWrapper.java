@@ -1,4 +1,4 @@
-package io.github.yehan2002.lib.de.tr7zw.itemnbtapi;
+package de.tr7zw.itemnbtapi;
 
 import org.bukkit.Bukkit;
 
