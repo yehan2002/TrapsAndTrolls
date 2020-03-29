@@ -1,8 +1,12 @@
-import org.apache.tools.ant.filters.ReplaceTokens
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+     id "com.github.johnrengelman.shadow" version "4.0.2"
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
 
 group = 'io.github.yehan2002.Traps'
 version = "1.5.4" //$VERSION$
@@ -45,6 +49,10 @@ repositories {
     maven{
         url 'https://repo.codemc.org/repository/maven-public'
     }
+
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
 }
 
 dependencies {
@@ -58,7 +66,6 @@ version = version + "-SNAPSHOT-" + getCheckedOutGitCommitHash()
 compileJava.options.encoding = 'UTF-8'
 
 task fatJar(type: Jar) {
-
     baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
@@ -72,14 +79,25 @@ sourceSets {
     }
 }
 
+shadowJar{
 
-jar {
+    dependencies {
+        exclude(dependency {it.moduleGroup != 'de.tr7zw'})
+    }
+
+    relocate 'de.tr7zw.changeme.nbtapi', 'io.github.yehan2002.Traps.nbtapi';
+
     manifest {
         attributes('Implementation-Title': project.name,
                 'Implementation-Version': project.version)
     }
+
+    classifier = ''
+
     from('src/') {
         include 'plugin.yml'
+        include 'config.yml'
+        include 'traps.yml'
         filter(ReplaceTokens, tokens: [VERSION : project.version])
     }
     doLast {
@@ -97,6 +115,10 @@ jar {
 
 }
 
+tasks.build {
+    dependsOn(tasks.shadowJar)
+}
 
-
-
+tasks.jar {
+    enabled = false
+}

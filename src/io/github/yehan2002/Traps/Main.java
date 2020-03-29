@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
@@ -21,8 +21,6 @@ public class Main extends JavaPlugin {
     public Shop shop;
     private EventListener listener;
     static ArrayList<UUID> exemptedPlayers = new ArrayList<>();
-
-
 
     @Override
     public void onEnable() {
@@ -46,7 +44,7 @@ public class Main extends JavaPlugin {
         }
         this.getServer().getPluginManager().registerEvents(new TrapListener(), this);
         this.getServer().getPluginManager().registerEvents(listener,this);
-        this.getServer().getPluginCommand("trap").setExecutor(new Command());
+        Objects.requireNonNull(this.getServer().getPluginCommand("trap")).setExecutor(new Command());
     }
 
 

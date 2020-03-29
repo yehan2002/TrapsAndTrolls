@@ -1,6 +1,7 @@
 name: Trap
 main: io.github.yehan2002.Traps.Main
 version: 1.5.4 #$version$
+api-version: 1.13
 commands:
   trap:
     description: Traps and Trolls Main Command

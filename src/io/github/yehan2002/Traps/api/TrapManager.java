@@ -1,6 +1,6 @@
 package io.github.yehan2002.Traps.api;
 
-import de.tr7zw.itemnbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import io.github.yehan2002.Traps.Main;
 import io.github.yehan2002.Traps.Shop;
 import io.github.yehan2002.Traps.Util.Config;
