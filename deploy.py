@@ -24,8 +24,6 @@ def addVersion(path, key, data):
 
 addVersion('build.gradle', "//$VERSION$", 'version = "%s" //$VERSION$\n')
 addVersion('src/plugin.yml', "#$version$", 'version: %s #$version$\n')
-
-quit()
 os.system('git tag %s'% version)
 os.system('git add -A')
 os.system('git commit')
