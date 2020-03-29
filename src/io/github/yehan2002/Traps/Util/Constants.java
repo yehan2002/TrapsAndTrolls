@@ -4,7 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
-public class Constants {
+public final class Constants {
     public static final Material OBSIDIAN = Material.OBSIDIAN;
     public static final Material WRITTEN_BOOK = Material.WRITTEN_BOOK;
     public static final Material CHEST = Material.CHEST;
@@ -35,7 +35,11 @@ public class Constants {
         try {
             tmp = Material.valueOf("MAGMA");
         }catch (IllegalArgumentException ignored){
-            tmp = Material.valueOf("MAGMA_BLOCK");
+            try{
+                tmp = Material.valueOf("MAGMA_BLOCK");
+            }catch (IllegalArgumentException ignored2) {
+                tmp = Material.LAVA;
+            }
         }
        MAGMA = tmp;
 

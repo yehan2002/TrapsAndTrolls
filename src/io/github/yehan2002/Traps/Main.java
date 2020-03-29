@@ -32,7 +32,6 @@ public class Main extends JavaPlugin {
         trapConfig.saveDefault(false);
 
         vault = new Vault(this);
-        System.out.println(TrapManager.TNT);
 
         shop = new Shop();
         listener = new EventListener();

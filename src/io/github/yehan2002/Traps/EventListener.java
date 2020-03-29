@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 
 public class EventListener implements Listener{
     private HashMap<Location, Trap> traps;
-    private boolean debug = true;
+    private boolean debug = false;
 
     EventListener(){
         traps = serialization.Deserialize();

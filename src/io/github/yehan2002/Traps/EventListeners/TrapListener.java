@@ -27,7 +27,7 @@ import java.util.HashMap;
 public class TrapListener implements Listener {
 
     @SuppressWarnings("unused")
-    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onTrap(TrapTriggeredEvent e) {
         switch (e.getTrap()) {
             case TNT:
@@ -77,7 +77,7 @@ public class TrapListener implements Listener {
         if (e.getTrap() != TrapManager.Herobrine) return;
         Location l = e.getPlayer().getLocation();
         e.getPlayer().playSound(e.getPlayer().getLocation(), Constants.JUMPSCARE, 1, 5);
-
+        e.setCancelled(true);
         l.add(2, 0, 0);
         Creeper c = (Creeper) e.getPlayer().getWorld().spawnEntity(l, EntityType.CREEPER);
         try {
@@ -115,13 +115,14 @@ public class TrapListener implements Listener {
         c.setMaxFuseTicks(40);
         c.setVelocity(e.getPlayer().getVelocity());
 
-        e.setCancelled(true);
+        
     }
 
     @EventHandler(ignoreCancelled = true)
     private void ThiefTrap(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Thief) return;
         e.setRemove(false);
+        e.setCancelled(true);
         Player p = e.getPlayer();
         ItemStack handItem;
         try {
@@ -153,7 +154,6 @@ public class TrapListener implements Listener {
         } catch (NoSuchMethodError methodError) {
             p.getInventory().setItemInHand(writtenBook);
         }
-        e.setCancelled(true);
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -264,7 +264,7 @@ public class TrapListener implements Listener {
                     loc.getBlock().setType(resetList.get(loc));
                 }
             }
-        }, 60);
+        }, 300);
 
 
         e.setCancelled(true);
@@ -302,13 +302,6 @@ public class TrapListener implements Listener {
     private void CreativeTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Creative) return;
         e.getPlayer().sendMessage(ChatColor.GOLD + "Set game mode " + ChatColor.RED + "creative" + ChatColor.GOLD + " for " + ChatColor.DARK_RED + e.getPlayer().getDisplayName());
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                e.getPlayer().sendMessage("You have been Trolled :)");
-            }
-        }.runTaskLater(Main.get(), 400);
-
         e.setCancelled(true);
     }
 
@@ -316,13 +309,6 @@ public class TrapListener implements Listener {
     private void OpTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Op) return;
         e.getPlayer().sendMessage(ChatColor.GRAY + "[Server: Opped " + e.getPlayer().getDisplayName() + "]");
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                e.getPlayer().sendMessage("You have been Trolled :)");
-            }
-        }.runTaskLater(Main.get(), 400);
-
         e.setCancelled(true);
     }
 
