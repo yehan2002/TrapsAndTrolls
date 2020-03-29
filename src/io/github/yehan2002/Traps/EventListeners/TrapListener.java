@@ -1,12 +1,16 @@
 package io.github.yehan2002.Traps.EventListeners;
 
 import io.github.yehan2002.Traps.Main;
+import io.github.yehan2002.Traps.Util.Constants;
 import io.github.yehan2002.Traps.api.TrapManager;
 import io.github.yehan2002.Traps.api.TrapTriggeredEvent;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Creeper;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -25,76 +29,60 @@ public class TrapListener implements Listener {
     @SuppressWarnings("unused")
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onTrap(TrapTriggeredEvent e) {
+        switch (e.getTrap()) {
+            case TNT:
+                e.getPlayer().getWorld().spawnEntity(e.getPlayer().getLocation(), EntityType.PRIMED_TNT);
+                break;
+            case Fire:
+                e.getPlayer().setFireTicks(100);
+                break;
+            case Glow:
+                try {
+                    e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 1200, 1));
+                } catch (NoSuchFieldError ignored) {
+                }
+                break;
+            case Launch:
+                try {
+                    e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, 10), false);
+                } catch (NoSuchFieldError error) {
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            e.getPlayer().teleport(e.getPlayer().getLocation().add(0, 10, 0));
+                        }
+                    }.runTaskLater(Main.get(), 5);
 
-        if (e.getTrap() == TrapManager.Fire) {
-            e.getPlayer().setFireTicks(100);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Lightning) {
-
-            e.getPlayer().getWorld().strikeLightning(e.getPlayer().getLocation());
-            e.setCancelled(true);
-
-        } else if (e.getTrap() == TrapManager.Glow) {
-            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 1200, 1));
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Poison) {
-            e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1));
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Launch) {
-            try {
-                e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 20, 10), false);
-            }catch (NoSuchFieldError error){
-               new BukkitRunnable(){
-                   @Override
-                   public void run(){
-                       e.getPlayer().teleport(e.getPlayer().getLocation().add(0, 10, 0));
-                   }
-               }.runTaskLater(Main.get(), 5);
-
-            }
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.TNT) {
-            e.getPlayer().getWorld().spawnEntity(e.getPlayer().getLocation(), EntityType.PRIMED_TNT);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Thief) {
-
-            this.ThiefTrap(e);
-            e.setRemove(false);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Lava) {
-            this.LavaTrap(e);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Cage) {
-            this.CageTrap(e);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Diamond) {
-            this.DiamondTroll(e);
-            e.setCancelled(true);
-        } else if (e.getTrap() == TrapManager.Creative){
-            this.CreativeTroll(e);
-            e.setCancelled(true);
-        } else  if (e.getTrap() == TrapManager.Op){
-            this.OpTroll(e);
-            e.setCancelled(true);
-        } else  if (e.getTrap() == TrapManager.Herobrine){
-            this.HerobrineTroll(e);
-            e.setCancelled(true);
+                }
+                break;
+            case Poison:
+                try {
+                    e.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 1));
+                } catch (NoSuchFieldError ignored) {
+                }
+                break;
+            case Lightning:
+                e.getPlayer().getWorld().strikeLightning(e.getPlayer().getLocation());
+                break;
+            default:
+                return;
         }
+        e.setCancelled(true);
 
 
     }
 
-    private void HerobrineTroll(TrapTriggeredEvent e){
+    @EventHandler(ignoreCancelled = true)
+    private void HerobrineTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Herobrine) return;
         Location l = e.getPlayer().getLocation();
-        e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.ENTITY_ENDERDRAGON_AMBIENT, 1, 5);
-
+        e.getPlayer().playSound(e.getPlayer().getLocation(), Constants.JUMPSCARE, 1, 5);
 
         l.add(2, 0, 0);
         Creeper c = (Creeper) e.getPlayer().getWorld().spawnEntity(l, EntityType.CREEPER);
         try {
             c.setExplosionRadius(0);
-        } catch (NoSuchMethodError methodError){
+        } catch (NoSuchMethodError methodError) {
             c.remove();
             return;
         }
@@ -130,28 +118,30 @@ public class TrapListener implements Listener {
         e.setCancelled(true);
     }
 
+    @EventHandler(ignoreCancelled = true)
     private void ThiefTrap(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Thief) return;
+        e.setRemove(false);
         Player p = e.getPlayer();
         ItemStack handItem;
         try {
             handItem = p.getInventory().getItemInMainHand();
         } catch (NoSuchMethodError methodError) {
-            handItem = p.getInventory().getItemInMainHand();
+            handItem = p.getInventory().getItemInHand();
         }
-        if (handItem.getType() == Material.AIR | handItem.getType() == Material.WRITTEN_BOOK) {
+        if (handItem.getType() == Constants.AIR | handItem.getType() == Constants.WRITTEN_BOOK) {
             return;
         }
         Location l = p.getLocation();
         l.setY(l.getBlockY() - 2);
         Block block = l.getBlock();
-        block.setType(Material.CHEST);
+        block.setType(Constants.CHEST);
 
         Chest c = (Chest) block.getState();
 
         c.getBlockInventory().addItem(handItem);
 
-        ItemStack writtenBook = new ItemStack(Material.WRITTEN_BOOK);
+        ItemStack writtenBook = new ItemStack(Constants.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) writtenBook.getItemMeta();
         bookMeta.setTitle("Stolen Item");
         bookMeta.setAuthor("Unknown");
@@ -160,13 +150,13 @@ public class TrapListener implements Listener {
 
         try {
             p.getInventory().setItemInMainHand(writtenBook);
-        }catch (NoSuchMethodError methodError){
-            p.getInventory().setItemInMainHand(writtenBook);
+        } catch (NoSuchMethodError methodError) {
+            p.getInventory().setItemInHand(writtenBook);
         }
-
         e.setCancelled(true);
     }
 
+    @EventHandler(ignoreCancelled = true)
     private void LavaTrap(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Lava) return;
 
@@ -176,22 +166,22 @@ public class TrapListener implements Listener {
         HashMap<Location, Material> resetList = new HashMap<>();
         l.setY(l.getY() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.AIR);
+        l.getBlock().setType(Constants.AIR);
         l.setY(l.getY() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.WEB);
+        l.getBlock().setType(Constants.WEB);
         l.setY(l.getY() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.WEB);
+        l.getBlock().setType(Constants.WEB);
         l.setY(l.getY() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.LAVA);
+        l.getBlock().setType(Constants.LAVA);
         lava = l.clone();
         Runnable noDeath = new BukkitRunnable() {
             @Override
             public void run() {
                 if (p.getHealth() < 5) {
-                    lava.getBlock().setType(Material.MAGMA);
+                    lava.getBlock().setType(Constants.MAGMA);
                     p.setFireTicks(0);
                 }
             }
@@ -212,7 +202,7 @@ public class TrapListener implements Listener {
         e.setCancelled(true);
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void CageTrap(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Cage) return;
         Player p = e.getPlayer();
@@ -221,51 +211,51 @@ public class TrapListener implements Listener {
 
         l.setY(l.getY() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setY(l.getY() + 3);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setX(l.getX() - 1);
         l.setY(l.getY() - 2);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() - 2);
         l.setX(l.getX() + 2);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() - 2);
         l.setX(l.getX() - 1);
         l.setZ(l.getZ() - 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() - 2);
         l.setZ(l.getZ() + 2);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.OBSIDIAN);
+        l.getBlock().setType(Constants.OBSIDIAN);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() + 1);
         resetList.put(l.clone(), l.getBlock().getType());
-        l.getBlock().setType(Material.IRON_FENCE);
+        l.getBlock().setType(Constants.IRON_FENCE);
         l.setY(l.getY() - 2);
 
         Bukkit.getServer().getScheduler().runTaskLater(Main.get(), () -> {
@@ -281,16 +271,17 @@ public class TrapListener implements Listener {
 
     }
 
+    @EventHandler(ignoreCancelled = true)
     private void DiamondTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Diamond) return;
         ArrayList<Item> drops = new ArrayList<>();
         for (int i = 0; i < 256; i++) {
-            Item Drop = e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation().add(0, 1, 0), new ItemStack(Material.DIAMOND));
+            Item Drop = e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation().add(0, 1, 0), new ItemStack(Constants.DIAMOND));
             Drop.setPickupDelay(1000);
 
             try {
                 Drop.setInvulnerable(true);
-            } catch (NoSuchMethodError methodError){
+            } catch (NoSuchMethodError methodError) {
                 // spigot 1.8
             }
 
@@ -307,28 +298,30 @@ public class TrapListener implements Listener {
         e.setCancelled(true);
     }
 
-    private void CreativeTroll(TrapTriggeredEvent e){
+    @EventHandler(ignoreCancelled = true)
+    private void CreativeTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Creative) return;
         e.getPlayer().sendMessage(ChatColor.GOLD + "Set game mode " + ChatColor.RED + "creative" + ChatColor.GOLD + " for " + ChatColor.DARK_RED + e.getPlayer().getDisplayName());
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
                 e.getPlayer().sendMessage("You have been Trolled :)");
             }
-        }.runTaskLater(Main.get(), 200);
+        }.runTaskLater(Main.get(), 400);
 
         e.setCancelled(true);
     }
 
-    private void OpTroll(TrapTriggeredEvent e){
+    @EventHandler(ignoreCancelled = true)
+    private void OpTroll(TrapTriggeredEvent e) {
         if (e.getTrap() != TrapManager.Op) return;
         e.getPlayer().sendMessage(ChatColor.GRAY + "[Server: Opped " + e.getPlayer().getDisplayName() + "]");
-        new BukkitRunnable(){
+        new BukkitRunnable() {
             @Override
             public void run() {
                 e.getPlayer().sendMessage("You have been Trolled :)");
             }
-        }.runTaskLater(Main.get(), 200);
+        }.runTaskLater(Main.get(), 400);
 
         e.setCancelled(true);
     }

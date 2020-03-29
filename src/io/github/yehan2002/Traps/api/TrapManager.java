@@ -59,7 +59,6 @@ public enum  TrapManager {
         description = trapConfig.getString(this + ".description");
         name = trapConfig.getString(this + ".name");
         perm = trapConfig.getString(this + ".permission");
-        System.out.println(perm);
         enabled = Main.get().config.getBoolean( "traps."+ this );
 
         if (Main.get().shop != null) Main.get().shop = new Shop();

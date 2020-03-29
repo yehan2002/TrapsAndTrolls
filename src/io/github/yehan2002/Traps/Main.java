@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.logging.Level;
 
 public class Main extends JavaPlugin {
     Vault vault;
@@ -38,7 +39,11 @@ public class Main extends JavaPlugin {
         shop = new Shop();
         listener = new EventListener();
 
-        new Recipe(new ItemStack(Material.DEAD_BUSH), "spring_stick").addRecipe(" I ", " S ", " S ").setIngredient('I', Material.IRON_INGOT,1 ).setIngredient('S', Material.STICK, 1);
+        try {
+            new Recipe(new ItemStack(Material.DEAD_BUSH), "spring_stick").addRecipe(" I ", " S ", " S ").setIngredient('I', Material.IRON_INGOT, 1).setIngredient('S', Material.STICK, 1);
+        } catch (NoClassDefFoundError  e){
+            getLogger().log(Level.SEVERE, e.getMessage());
+        }
         this.getServer().getPluginManager().registerEvents(new TrapListener(), this);
         this.getServer().getPluginManager().registerEvents(listener,this);
         this.getServer().getPluginCommand("trap").setExecutor(new Command());

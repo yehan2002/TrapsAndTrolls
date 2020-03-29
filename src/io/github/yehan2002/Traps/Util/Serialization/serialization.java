@@ -61,6 +61,7 @@ public class serialization implements Serializable{
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static HashMap<location, Trap> read() throws IOException, ClassNotFoundException {
         Object data;
         try (FileInputStream fileInputStream = new FileInputStream(path); ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)) {
@@ -68,7 +69,6 @@ public class serialization implements Serializable{
         }
 
         if (data != null){
-            //noinspection unchecked
             return ((HashMap<location, Trap>) data);
         }
 

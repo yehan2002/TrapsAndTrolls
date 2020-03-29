@@ -37,7 +37,6 @@ public class EventListener implements Listener{
         if(!p.getLocation().getBlock().isEmpty() && p.getLocation().getBlock().getType() == Material.TRIPWIRE){
             if (traps.containsKey(l)){
                 TrapManager trap = traps.get(l).trap;
-                System.out.println(e);
 
 
                 if (Main.exemptedPlayers.contains(p.getUniqueId())){

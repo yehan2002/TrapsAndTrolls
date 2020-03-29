@@ -12,6 +12,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Listener {
@@ -48,7 +49,7 @@ public class Shop implements Listener {
     private ItemStack addPrice(ItemStack i, int price){
         i = i.clone();
         ItemMeta meta = i.getItemMeta();
-        List<String> lore= meta.getLore();
+        List<String> lore = meta.getLore() == null?  new ArrayList<>():meta.getLore();
         lore.add(ChatColor.GREEN + "Price: $"+ price);
         meta.setLore(lore);
         i.setItemMeta(meta);
@@ -57,9 +58,12 @@ public class Shop implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory().getTitle().equals(name)) {
+        if (event.getView().getTitle().equals(name)) {
             event.setCancelled(true);
             int slot = event.getRawSlot();
+            if (event.getClickedInventory() == null){
+                return;
+            }
             if (this.isValid(slot,event.getClickedInventory().getItem(slot))){
                 Player p = (Player) event.getWhoClicked();
                 if (!p.hasPermission(perms[slot])){
@@ -80,9 +84,17 @@ public class Shop implements Listener {
         ItemMeta meta1 = itemStack.getItemMeta();
         ItemMeta meta2 = item.getItemMeta();
 
+        if (meta1 == null || meta2 == null){
+            return  false;
+        }
+
         if (meta1.hasDisplayName() != meta2.hasDisplayName() || !meta1.getDisplayName().equals(meta2.getDisplayName())) return false;
         if (meta1.hasLore() != meta2.hasLore()) return false;
         if (!meta1.hasLore()) return true;
+
+        if (meta1.getLore() == null || meta2.getLore() == null){
+            return  false;
+        }
 
         for (int i = 0; i < meta2.getLore().size(); i++) {
             if (!meta1.getLore().get(i).equals(meta2.getLore().get(i))) return false;
