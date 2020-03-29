@@ -1,6 +1,6 @@
 name: Trap
 main: io.github.yehan2002.Traps.Main
-version: 1.5.3 #$version$
+version: 1.6 #$version$
 api-version: 1.13
 commands:
   trap:
