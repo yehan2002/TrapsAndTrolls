@@ -1,25 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="6a5f30ca-b396-4a43-bf5e-63aa5b8dab71" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Trap.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/ClassWrapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTCompound.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTContainer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTFile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTItem.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTListCompound.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTReflectionUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTTileEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/NBTType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/ObjectCreator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/ReflectionMethod.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/utils/GsonWrapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/tr7zw/itemnbtapi/utils/MinecraftVersion.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/EventListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/EventListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/EventListeners/TrapListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/EventListeners/TrapListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/api/TrapManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/api/TrapManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/Util/Vault.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/io/github/yehan2002/Traps/Util/Vault.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -49,11 +62,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="Trap" type="f1a62948:ProjectNode" />
               </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="Trap" type="f1a62948:ProjectNode" />
-                <item name="Source Sets" type="e897c970:GradleViewContributor$SourceSetsNode" />
-              </path>
             </expand>
             <select />
           </tree_state>
@@ -74,11 +82,12 @@
   <component name="ProjectId" id="1ZnVow2MntuvBkySdQboYdhaIId" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
@@ -190,13 +199,14 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.Trap [shadowJar]" />
-        <item itemvalue="Gradle.Trap [dependencies]" />
         <item itemvalue="Gradle.Trap [fatJar]" />
+        <item itemvalue="Gradle.Trap [dependencies]" />
         <item itemvalue="Gradle.Trap [shadownJar]" />
         <item itemvalue="Gradle.Trap [jar]" />
       </list>
     </recent_temporary>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -210,42 +220,58 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="608" y="126" width="700" height="827" key="CommitChangelistDialog2" timestamp="1585479518469">
+    <state width="1358" height="260" key="GridCell.Tab.0.bottom" timestamp="1625682942064">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state x="608" y="126" width="700" height="827" key="CommitChangelistDialog2/0.24.1920.1029@0.24.1920.1029" timestamp="1585479518469" />
-    <state x="743" y="282" width="430" height="516" key="FileChooserDialogImpl" timestamp="1585476797027">
+    <state width="1358" height="260" key="GridCell.Tab.0.bottom/0.24.1920.1029@0.24.1920.1029" timestamp="1625682942064" />
+    <state width="1358" height="260" key="GridCell.Tab.0.center" timestamp="1625682942063">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state x="743" y="282" width="430" height="516" key="FileChooserDialogImpl/0.24.1920.1029@0.24.1920.1029" timestamp="1585476797027" />
-    <state width="1348" height="256" key="GridCell.Tab.0.bottom" timestamp="1585482606532">
+    <state width="1358" height="260" key="GridCell.Tab.0.center/0.24.1920.1029@0.24.1920.1029" timestamp="1625682942063" />
+    <state width="1358" height="260" key="GridCell.Tab.0.left" timestamp="1625682942063">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state width="1348" height="256" key="GridCell.Tab.0.bottom/0.24.1920.1029@0.24.1920.1029" timestamp="1585482606532" />
-    <state width="1348" height="256" key="GridCell.Tab.0.center" timestamp="1585482606532">
+    <state width="1358" height="260" key="GridCell.Tab.0.left/0.24.1920.1029@0.24.1920.1029" timestamp="1625682942063" />
+    <state width="1358" height="260" key="GridCell.Tab.0.right" timestamp="1625682942064">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state width="1348" height="256" key="GridCell.Tab.0.center/0.24.1920.1029@0.24.1920.1029" timestamp="1585482606532" />
-    <state width="1348" height="256" key="GridCell.Tab.0.left" timestamp="1585482606532">
+    <state width="1358" height="260" key="GridCell.Tab.0.right/0.24.1920.1029@0.24.1920.1029" timestamp="1625682942064" />
+    <state width="1358" height="321" key="GridCell.Tab.1.bottom" timestamp="1625673860022">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state width="1348" height="256" key="GridCell.Tab.0.left/0.24.1920.1029@0.24.1920.1029" timestamp="1585482606532" />
-    <state width="1348" height="256" key="GridCell.Tab.0.right" timestamp="1585482606532">
+    <state width="1358" height="321" key="GridCell.Tab.1.bottom/0.24.1920.1029@0.24.1920.1029" timestamp="1625673860022" />
+    <state width="1358" height="321" key="GridCell.Tab.1.center" timestamp="1625673860022">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state width="1348" height="256" key="GridCell.Tab.0.right/0.24.1920.1029@0.24.1920.1029" timestamp="1585482606532" />
-    <state x="443" y="116" width="1030" height="848" key="SettingsEditor" timestamp="1585479369559">
+    <state width="1358" height="321" key="GridCell.Tab.1.center/0.24.1920.1029@0.24.1920.1029" timestamp="1625673860022" />
+    <state width="1358" height="321" key="GridCell.Tab.1.left" timestamp="1625673860022">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state x="443" y="116" width="1030" height="848" key="SettingsEditor/0.24.1920.1029@0.24.1920.1029" timestamp="1585479369559" />
-    <state width="435" height="76" key="javadoc.popup.new" timestamp="1585481997984">
+    <state width="1358" height="321" key="GridCell.Tab.1.left/0.24.1920.1029@0.24.1920.1029" timestamp="1625673860022" />
+    <state width="1358" height="321" key="GridCell.Tab.1.right" timestamp="1625673860022">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state width="435" height="76" key="javadoc.popup.new/0.24.1920.1029@0.24.1920.1029" timestamp="1585481997984" />
-    <state x="621" y="245" width="672" height="677" key="run.anything.popup" timestamp="1585480555082">
+    <state width="1358" height="321" key="GridCell.Tab.1.right/0.24.1920.1029@0.24.1920.1029" timestamp="1625673860022" />
+    <state x="1029" y="224" width="369" height="582" key="RollbackChangesDialog" timestamp="1625676144833">
       <screen x="0" y="24" width="1920" height="1029" />
     </state>
-    <state x="621" y="245" width="672" height="677" key="run.anything.popup/0.24.1920.1029@0.24.1920.1029" timestamp="1585480555082" />
+    <state x="1029" y="224" width="369" height="582" key="RollbackChangesDialog/0.24.1920.1029@0.24.1920.1029" timestamp="1625676144833" />
+    <state x="882" y="240" key="search.everywhere.popup" timestamp="1625672680201">
+      <screen x="0" y="24" width="1920" height="1029" />
+    </state>
+    <state x="882" y="240" key="search.everywhere.popup/0.24.1920.1029@0.24.1920.1029" timestamp="1625672680201" />
   </component>
 </project>

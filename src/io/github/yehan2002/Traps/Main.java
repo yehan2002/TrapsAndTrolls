@@ -5,7 +5,12 @@ import io.github.yehan2002.Traps.Util.Config;
 import io.github.yehan2002.Traps.Util.Recipe;
 import io.github.yehan2002.Traps.Util.Vault;
 import io.github.yehan2002.Traps.api.TrapManager;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -31,16 +36,17 @@ public class Main extends JavaPlugin {
         Config trapConfig = new Config("traps.yml");
         trapConfig.saveDefault(false);
 
-        vault = new Vault(this);
+        try {
+            vault = new Vault(this);
+        } catch (RuntimeException e){
+            e.printStackTrace();
+            return;
+        }
 
         shop = new Shop();
         listener = new EventListener();
 
-        try {
-            new Recipe(new ItemStack(Material.DEAD_BUSH), "spring_stick").addRecipe(" I ", " S ", " S ").setIngredient('I', Material.IRON_INGOT, 1).setIngredient('S', Material.STICK, 1);
-        } catch (NoClassDefFoundError  e){
-            getLogger().log(Level.SEVERE, e.getMessage());
-        }
+
         this.getServer().getPluginManager().registerEvents(new TrapListener(), this);
         this.getServer().getPluginManager().registerEvents(listener,this);
         Objects.requireNonNull(this.getServer().getPluginCommand("trap")).setExecutor(new Command());
@@ -53,7 +59,9 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        listener.save();
+        if (listener != null) {
+            listener.save();
+        }
         super.onDisable();
     }
 

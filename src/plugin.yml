@@ -1,16 +1,18 @@
 name: Trap
 main: io.github.yehan2002.Traps.Main
-version: 1.6 #$version$
+version: 1.7 #$version$
 api-version: 1.13
 commands:
   trap:
     description: Traps and Trolls Main Command
     usage: /trap help
 
+softdepend:
+  - Vault
 
 permissions:
   trapAndTrolls.exempt:
-    description: Players with this permision can do /trap exempt to not trigger any traps.
+    description: Players with this permission can do /trap exempt to not trigger any traps.
     default: op
 
   trapsAndTrolls.trap.Fire:

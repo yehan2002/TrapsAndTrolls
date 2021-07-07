@@ -5,6 +5,7 @@ import io.github.yehan2002.Traps.Util.Serialization.serialization;
 import io.github.yehan2002.Traps.api.Trap;
 import io.github.yehan2002.Traps.api.TrapManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -14,16 +15,19 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.inventory.InventoryPickupItemEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 
 public class EventListener implements Listener{
     private HashMap<Location, Trap> traps;
-    private boolean debug = false;
+    private final boolean debug = false;
 
     EventListener(){
         traps = serialization.Deserialize();
@@ -72,12 +76,13 @@ public class EventListener implements Listener{
     @SuppressWarnings("unused")
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void trapPlace(BlockPlaceEvent e){
-        if (e.getItemInHand().getType() == Material.STRING && e.getItemInHand().getItemMeta().getDisplayName() != null) {
+        if (e.getItemInHand().getType() == Material.STRING) {
+            Objects.requireNonNull(e.getItemInHand().getItemMeta()).getDisplayName();
             TrapManager trapManager = TrapManager.getTrapType(e.getItemInHand());
 
             if (trapManager != null) {
 
-                traps.put(e.getBlock().getLocation(), new Trap(trapManager,""));
+                traps.put(e.getBlock().getLocation(), new Trap(trapManager, ""));
 
                 if (debug) {
                     Logger.getGlobal().info("[Trap] Placed " + trapManager + " trap @ " + e.getBlock().getLocation() + ".");
@@ -86,13 +91,22 @@ public class EventListener implements Listener{
         }
     }
 
+    @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
+    public  void itemPickup(InventoryPickupItemEvent e){
+        ItemStack stack = e.getItem().getItemStack();
+        if (stack.getItemMeta() != null && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().equals(ChatColor.GREEN+"fake diamond")){
+            e.setCancelled(true);
+        }
+        System.out.println(e.getItem().getName());
+    }
+
     @SuppressWarnings({"unused", "deprecation"})
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void blockBreak(BlockBreakEvent e){
         Location l = e.getBlock().getLocation();
         if(!e.getBlock().isEmpty() && e.getBlock().getType() == Material.TRIPWIRE){
             if (traps.containsKey(l)) {
-                Map enc;
+                Map<Enchantment, Integer> enc;
                 try {
                     enc = e.getPlayer().getInventory().getItemInMainHand().getEnchantments();
                 }catch (NoSuchMethodError methodError){

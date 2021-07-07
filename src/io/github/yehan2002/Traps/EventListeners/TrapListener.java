@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -276,7 +277,14 @@ public class TrapListener implements Listener {
         if (e.getTrap() != TrapManager.Diamond) return;
         ArrayList<Item> drops = new ArrayList<>();
         for (int i = 0; i < 256; i++) {
-            Item Drop = e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation().add(0, 1, 0), new ItemStack(Constants.DIAMOND));
+            //
+            ItemStack stack = new ItemStack(Constants.DIAMOND);
+            ItemMeta meta = stack.getItemMeta();
+            assert meta != null;
+            meta.setDisplayName(ChatColor.GREEN+"fake diamond");
+            stack.setItemMeta(meta);
+            Item Drop = e.getPlayer().getWorld().dropItemNaturally(e.getPlayer().getLocation().add(0, 1, 0), stack);
+
             Drop.setPickupDelay(1000);
 
             try {
