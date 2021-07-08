@@ -9,7 +9,7 @@ plugins {
 import org.apache.tools.ant.filters.ReplaceTokens
 
 group = 'io.github.yehan2002.Traps'
-version = "1.7.1" //$VERSION$
+version = "v1.7.3" //$VERSION$
 archivesBaseName = 'Traps'
 
 
