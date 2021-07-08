@@ -57,7 +57,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.17.1-R0.1-SNAPSHOT'
     compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
-    compileOnly 'de.tr7zw:item-nbt-api:2.8.0'
+    implementation 'de.tr7zw:item-nbt-api:2.8.0'
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 }
@@ -69,19 +69,12 @@ compileJava.options.encoding = 'UTF-8'
 
 
 shadowJar{
-
-    dependencies {
-        exclude dependency { it.moduleGroup != 'de.tr7zw' }
-    }
-
     relocate 'de.tr7zw.changeme.nbtapi', 'io.github.yehan2002.Traps.nbtapi';
 
     manifest {
         attributes('Implementation-Title': project.name,
                 'Implementation-Version': project.version)
     }
-
-    classifier = ''
 
     from('src/') {
         include 'plugin.yml'
@@ -104,8 +97,16 @@ shadowJar{
 
 }
 
+
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/'
+        }
+    }
+}
+
+
+
 tasks.build {dependsOn(tasks.shadowJar)}
-
-task fatJar(type: Jar) {enabled(false)}
-
-tasks.jar {enabled(false)}
