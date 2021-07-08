@@ -3,7 +3,7 @@ plugins {
     id 'java'
     id 'eclipse'
     id 'idea'
-    id "com.github.johnrengelman.shadow" version "4.0.2"
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 import org.apache.tools.ant.filters.ReplaceTokens
@@ -65,28 +65,16 @@ dependencies {
     annotationProcessor(group:'org.projectlombok', name:'lombok', version:'1.18.20')
 }
 
-version = version + "-SNAPSHOT-" + getCheckedOutGitCommitHash()
+version = version + "-" + getCheckedOutGitCommitHash()
 
 compileJava.options.encoding = 'UTF-8'
 
-task fatJar(type: Jar) {
-    baseName = project.name
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
 
-sourceSets {
-    main {
-        java {
-            srcDirs 'src'
-        }
-    }
-}
 
 shadowJar{
 
     dependencies {
-        exclude(dependency {it.moduleGroup != 'de.tr7zw'})
+        exclude dependency { it.moduleGroup != 'de.tr7zw' }
     }
 
     relocate 'de.tr7zw.changeme.nbtapi', 'io.github.yehan2002.Traps.nbtapi';
@@ -119,10 +107,8 @@ shadowJar{
 
 }
 
-tasks.build {
-    dependsOn(tasks.shadowJar)
-}
+tasks.build {dependsOn(tasks.shadowJar)}
 
-tasks.jar {
-    enabled = false
-}
+task fatJar(type: Jar) {enabled(false)}
+
+tasks.jar {enabled(false)}
