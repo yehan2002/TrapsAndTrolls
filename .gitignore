@@ -1,5 +1,7 @@
 out/
-.gradle/
-build/
+.gradle
+.idea
+.settings
+build
 builds
 *.old

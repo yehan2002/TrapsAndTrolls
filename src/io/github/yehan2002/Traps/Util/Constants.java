@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
+@SuppressWarnings("SpellCheckingInspection")
 public final class Constants {
     public static final Material OBSIDIAN = Material.OBSIDIAN;
     public static final Material WRITTEN_BOOK = Material.WRITTEN_BOOK;

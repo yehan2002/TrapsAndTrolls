@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 
 
 public class EventListener implements Listener{
-    private HashMap<Location, Trap> traps;
+    private final HashMap<Location, Trap> traps;
     private final boolean debug = false;
 
     EventListener(){
@@ -97,7 +97,6 @@ public class EventListener implements Listener{
         if (stack.getItemMeta() != null && stack.getItemMeta().hasDisplayName() && stack.getItemMeta().getDisplayName().equals(ChatColor.GREEN+"fake diamond")){
             e.setCancelled(true);
         }
-        System.out.println(e.getItem().getName());
     }
 
     @SuppressWarnings({"unused", "deprecation"})

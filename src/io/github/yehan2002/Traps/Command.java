@@ -45,6 +45,8 @@ public class Command implements CommandExecutor {
                 }
             }
 
+        } else{
+          sender.sendMessage("This command can only be used by players.");
         }
             return true;
     }

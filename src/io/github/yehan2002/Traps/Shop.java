@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shop implements Listener {
-    private ItemStack[] optionIcons;
-    private int[] prices;
-    private String[] perms;
-    private Inventory inventory;
+    private final ItemStack[] optionIcons;
+    private final int[] prices;
+    private final String[] perms;
+    private final Inventory inventory;
     private int size;
-    private String name = ChatColor.GREEN + "Trap Shop";
+    private final String name = ChatColor.GREEN + "Trap Shop";
 
 
     public Shop() {

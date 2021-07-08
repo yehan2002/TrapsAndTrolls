@@ -66,9 +66,3 @@ permissions:
   trapsAndTrolls.trap.Op:
     description: Allow player to buy and place the op trap
     default: true
-
-
-
-#  trapsAndTrolls.show:
-#    description: Allows players to user /trap show
-#    default: false

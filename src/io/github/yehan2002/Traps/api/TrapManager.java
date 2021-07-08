@@ -11,6 +11,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 @SuppressWarnings("unused")
 public enum  TrapManager {
@@ -68,7 +69,7 @@ public enum  TrapManager {
     public ItemStack get(boolean addNBT){
         ItemStack itemStack = new ItemStack(Material.STRING);
         ItemMeta meta = itemStack.getItemMeta();
-        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', String.format("&a%s&r", this.name)));
+        Objects.requireNonNull(meta).setDisplayName(ChatColor.translateAlternateColorCodes('&', String.format("&a%s&r", this.name)));
         meta.setLore(new ArrayList<>(Arrays.asList(description.split("\n"))));
         itemStack.setItemMeta(meta);
         if (addNBT){

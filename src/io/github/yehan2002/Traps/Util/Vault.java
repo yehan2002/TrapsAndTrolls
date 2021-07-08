@@ -13,9 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.Objects;
 
 public class Vault {
-    private Economy economy;
-    private String buyFail;
-    private String buyOk;
+    private final Economy economy;
+    private final String buyFail;
+    private final String buyOk;
 
     public Vault(JavaPlugin plugin){
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
@@ -32,7 +32,7 @@ public class Vault {
         }
 
            RegisteredServiceProvider<Economy> rsp = plugin.getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null || rsp.getProvider() == null){
+        if (rsp == null){
             plugin.getServer().getLogger().severe("Economy provider was not found. Disabling "+ plugin.getName());
             Objects.requireNonNull(plugin.getServer().getPluginCommand("trap")).setExecutor(
                 (sender, command, label, args) -> {
@@ -44,6 +44,7 @@ public class Vault {
         );
             throw new RuntimeException("No economy plugin.");
         }
+
         economy = rsp.getProvider();
         buyFail = ChatColor.translateAlternateColorCodes('&', Main.get().config.getString("messages.notEnoughMoney"));
         buyOk = ChatColor.translateAlternateColorCodes('&', Main.get().config.getString("messages.buySuccess"));

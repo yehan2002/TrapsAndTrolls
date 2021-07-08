@@ -102,7 +102,6 @@ public class Config {
 
 
     public int getInt(String path){
-
         return yml.getInt(path);
     }
 
